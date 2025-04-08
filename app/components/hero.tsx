@@ -3,6 +3,7 @@
 import { useState } from "react";
 import posts from "../utils/posts";
 import Popup from "./popup";
+import Link from "next/link";
 
 
 export default function Hero() {
@@ -35,7 +36,7 @@ export default function Hero() {
         {/*lista di articoli*/}
         <div className="space-y-10">
         {posts.map((post) => (
-            <a
+            <Link
               key={post.id}
               className="cursor-pointer"
               href={`/post/${post.id}`}
@@ -47,7 +48,7 @@ export default function Hero() {
                   {post.content.length > 70 && " ..."}
                 </p>
               </article>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
