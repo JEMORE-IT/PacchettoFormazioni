@@ -9,10 +9,6 @@ import Link from "next/link";
 export default function Hero() {
   const [showPopup, setShowPopup] = useState(false);
 
-  const handleSubmit = (newPost: { title: string; content: string }) => {
-    console.log("Nuovo post:", newPost);
-    // qui puoi gestire l'aggiunta dinamica allo stato se usi uno useState con la lista
-  };
 
   return (
     <section className="min-h-screen bg-gray-50 py-12 px-4">
@@ -30,7 +26,7 @@ export default function Hero() {
 
         {/*Se showPopup è true allora mostra il popup*/}
         {showPopup && (
-          <Popup onClose={() => setShowPopup(false)} onSubmit={handleSubmit} />
+          <Popup onClose={() => setShowPopup(false)}/>
         )}
 
         {/*lista di articoli*/}
