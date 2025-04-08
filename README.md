@@ -3,13 +3,13 @@ Documentazione: Mini Blog con React (Next.js App Router)
 
 Questa demo mostra un piccolo blog dove:
 
-    Gli articoli sono mostrati in homepage
+- Gli articoli sono mostrati in homepage
 
-    Ogni articolo è cliccabile → porta a una pagina dinamica
+- Ogni articolo è cliccabile → porta a una pagina dinamica
 
-    C’è una pagina About
+-   Ci sono pagine statiche come About e Contact
 
-    Tutto è costruito in modo semplice, statico e chiaro
+- Tutto è costruito in modo semplice, statico e chiaro
 
 🧱 Struttura del Progetto
 
