@@ -4,9 +4,9 @@ export default function Header() {
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-blue-600">📘 Blog Minimal</h1>
           <nav className="space-x-4">
-            <a href="#" className="text-gray-600 hover:text-blue-600 transition">Home</a>
-            <a href="#" className="text-gray-600 hover:text-blue-600 transition">Chi siamo</a>
-            <a href="#" className="text-gray-600 hover:text-blue-600 transition">Contatti</a>
+            <a href="/" className="text-gray-600 hover:text-blue-600 transition">Home</a>
+            <a href="/about" className="text-gray-600 hover:text-blue-600 transition">About</a>
+            <a href="/contact" className="text-gray-600 hover:text-blue-600 transition">Contact</a>
           </nav>
         </div>
       </header>
