@@ -1,8 +1,10 @@
-"use client"
+"use client";
+
+import { use } from "react";
 import posts from "@/app/utils/posts";
 
-const PostPage = ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = use(params); // <-- unwrap della Promise con React.use()
 
   const post = posts.find((a) => a.id === parseInt(id));
 
