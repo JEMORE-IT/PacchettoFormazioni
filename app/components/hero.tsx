@@ -18,16 +18,21 @@ export default function Hero() {
     ];
   
     return (
-      <div className="max-w-xl mx-auto p-6 font-sans">
-        <h1 className="text-3xl font-bold mb-6">📘 Blog Minimal</h1>
-  
-        {posts.map((post) => (
-          <div key={post.id} className="mb-8">
-            <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-            <p>{post.content}</p>
+      <section className="min-h-screen bg-gray-50 py-12 px-4">
+        <div className="max-w-3xl mx-auto">  
+          <div className="space-y-10">
+            {posts.map((post) => (
+              <article
+                key={post.id}
+                className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 hover:shadow-md transition"
+              >
+                <h2 className="text-2xl font-semibold text-gray-800 mb-2">{post.title}</h2>
+                <p className="text-gray-700 leading-relaxed">{post.content}</p>
+              </article>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      </section>
     );
   }
   
