@@ -12,7 +12,11 @@ export default function Popup({ onClose }: Props) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Qui puoi gestire l'invio dei dati al server o qualsiasi altra logica necessaria
 
+    console.log("Titolo:", title);
+    console.log("Contenuto:", content);
+    alert("Post creato con successo!");
     setTitle("");
     setContent("");
     onClose();
@@ -25,7 +29,7 @@ export default function Popup({ onClose }: Props) {
         {/*Titolo Popup*/}
         <h3 className="text-xl font-semibold mb-4 text-center">Crea un nuovo post</h3>
 
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
         
         {/*Campo titolo*/}
           <div>
