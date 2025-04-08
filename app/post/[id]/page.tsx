@@ -1,8 +1,9 @@
 import posts from "@/app/utils/posts";
 
 const PostPage = async ({ params }: { params: { id: string } }) => {
-  const id = parseInt(params.id);
-  const post = posts.find((a) => a.id === id);
+  const {id} = await params;
+
+  const post = posts.find((a) => a.id === parseInt(id));
 
   if (!post) {
     return (
