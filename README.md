@@ -13,21 +13,21 @@ Questa demo mostra un piccolo blog dove:
 
 🧱 Struttura del Progetto
 
-app/
-├── page.tsx             → Homepage
-├── about/
-│   └── page.tsx         → Pagina "Chi siamo"
-├── contact/
-│   └── page.tsx         → Pagina "Contattaci"
-├── post/
-│   └── [id]/
-│       └── page.tsx     → Pagina articolo dinamico
-components/
-│   |── Hero.tsx         → Componente con la lista articoli
-|   |── Header.tsx       → Componente con Header
-|   └── Footer.tsx       → Componente con Footer
-utils/
-└── posts.ts             → Dati statici degli articoli
+    app/
+    ├── page.tsx             → Homepage
+    ├── about/
+    │   └── page.tsx         → Pagina "Chi siamo"
+    ├── contact/
+    │   └── page.tsx         → Pagina "Contattaci"
+    ├── post/
+    │   └── [id]/
+    │       └── page.tsx     → Pagina articolo dinamico
+    components/
+    │   |── Hero.tsx         → Componente con la lista articoli
+    |   |── Header.tsx       → Componente con Header
+    |   └── Footer.tsx       → Componente con Footer
+    utils/
+    └── posts.ts             → Dati statici degli articoli
 
 🔍 Come Funziona
 utils/posts.ts
@@ -50,11 +50,9 @@ export default posts;
       </a>
     ))}
 
-    ✅ Mostra tutti gli articoli
-
-    ✅ Usa map() per generare un componente per ogni post
-
-    ✅ Mostra solo le prime 20 parole del contenuto con una funzione helper
+✅ Mostra tutti gli articoli
+✅ Usa map() per generare un componente per ogni post    
+✅ Mostra solo le prime 20 parole del contenuto con una funzione helper
 
 app/post/[id]/page.tsx (Pagina dinamica)
 
