@@ -4,16 +4,15 @@ import { useState } from "react";
 
 type Props = {
   onClose: () => void;
-  onSubmit: (data: { title: string; content: string }) => void;
 };
 
-export default function Popup({ onClose, onSubmit }: Props) {
+export default function Popup({ onClose }: Props) {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ title, content });
+
     setTitle("");
     setContent("");
     onClose();
@@ -26,7 +25,7 @@ export default function Popup({ onClose, onSubmit }: Props) {
         {/*Titolo Popup*/}
         <h3 className="text-xl font-semibold mb-4 text-center">Crea un nuovo post</h3>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form className="space-y-4">
         
         {/*Campo titolo*/}
           <div>
