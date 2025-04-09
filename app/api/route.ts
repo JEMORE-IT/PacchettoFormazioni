@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import {Pool} from "pg";
 
-const prisma = new PrismaClient();
+//Creare una connessione al database PostgreSQL
+const pool = new Pool({
+  user: "postgres",
+  host: "localhost",
+  database: "PacchettoFormazioni",
+  password: "postgres",
+  port: 5432,
+});
 
 // Funzione per aggiungere un post
 export async function POST(request: Request) {
@@ -16,16 +23,14 @@ export async function POST(request: Request) {
       );
     }
 
-    // Aggiungi il nuovo post
-    const newPost = await prisma.post.create({
-      data:{
-        title:body.title,
-        content: body.content
-      },
-    });
+   // Aggiungi il nuovo post
+   const result = await pool.query(
+    "INSERT INTO posts (title, content) VALUES ($1, $2) RETURNING *",
+    [body.title, body.content]
+  );
 
     // Salva il post in un file o in un database (simulato qui con un array)
-    return NextResponse.json({ message: "Post added successfully", post: newPost },{ status: 201 });
+    return NextResponse.json({ message: "Post added successfully", post: result.rows[0] },{ status: 201 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to add post" },{ status: 500 });
   }
@@ -33,8 +38,8 @@ export async function POST(request: Request) {
 
 // Funzione per ottenere tutti i post
 export async function GET() { try {
-  const posts = await prisma.post.findMany();
-  return NextResponse.json(posts, { status: 200 });
+  const result = await pool.query("SELECT * FROM posts");
+  return NextResponse.json(result.rows, { status: 200 });
 } catch (error) {
   return NextResponse.json({ error: "Failed to fetch posts" }, { status: 500 });
 }
@@ -53,17 +58,17 @@ export async function PUT(request: Request) {
       );
     }
 
-    // Aggiorna il post nel database
-    const updatedPost = await prisma.post.update({
-      where: { id: body.id },
-      data: {
-        title: body.title,
-        content: body.content,
-      },
-    });
+     // Aggiorna il post
+     const result = await pool.query(
+      "UPDATE posts SET title = $1, content = $2 WHERE id = $3 RETURNING *",
+      [body.title, body.content, body.id]
+    );
+    if (result.rowCount === 0) {
+      return NextResponse.json({ error: "Post not found" },{ status: 400 });
+    }
 
     return NextResponse.json(
-      { message: "Post updated successfully", post: updatedPost },
+      { message: "Post updated successfully", post: result.rows[0] },
       { status: 200 }
     );
   } catch (error) {
@@ -85,13 +90,15 @@ export async function DELETE(request: Request) {
       );
     }
 
-   // Elimina il post dal database
-   const deletedPost = await prisma.post.delete({
-    where: { id },
-  });
+    // Elimina il post
+    const result = await pool.query("DELETE FROM posts WHERE id = $1 RETURNING *", [id]);
+
+    if (result.rowCount === 0) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
 
     return NextResponse.json(
-      { message: "Post deleted successfully", post: deletedPost[0] },
+      { message: "Post deleted successfully", post: result.rows[0] },
       { status: 200 }
     );
   } catch (error) {
