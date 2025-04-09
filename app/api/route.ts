@@ -3,11 +3,10 @@ import {Pool} from "pg";
 
 //Creare una connessione al database PostgreSQL
 const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "PacchettoFormazioni",
-  password: "postgres",
-  port: 5432,
+  connectionString: process.env.DATABASE_URL, // URL del database
+  ssl: {
+    rejectUnauthorized: false, // Disabilita la verifica del certificato SSL
+  },
 });
 
 // Funzione per aggiungere un post
