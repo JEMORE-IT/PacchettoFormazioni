@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
-import {Pool} from "pg";
+import {getDbPool, applySchema} from "../../../lib/db";
 
 //Creare una connessione al database PostgreSQL
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL, // URL del database
-  ssl: {
-    rejectUnauthorized: false, // Disabilita la verifica del certificato SSL
-  },
-});
+const pool = getDbPool();
+
+// Applica lo schema al database
+applySchema().catch((error) => console.error("Error applying schema:", error));
+
 
 // Funzione per aggiungere un post
 export async function POST(request: Request) {
