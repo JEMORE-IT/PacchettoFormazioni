@@ -4,16 +4,19 @@ import { useState } from "react";
 
 type Props = {
   onClose: () => void;
-  onSubmit: (data: { title: string; content: string }) => void;
 };
 
-export default function Popup({ onClose, onSubmit }: Props) {
+export default function Popup({ onClose }: Props) {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ title, content });
+    // Qui puoi gestire l'invio dei dati al server o qualsiasi altra logica necessaria
+
+    console.log("Titolo:", title);
+    console.log("Contenuto:", content);
+    alert("Post creato con successo!");
     setTitle("");
     setContent("");
     onClose();
@@ -55,14 +58,14 @@ export default function Popup({ onClose, onSubmit }: Props) {
           <div className="flex justify-between">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer"
             >
               Add
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg cursor-pointer"
             >
               Close
             </button>

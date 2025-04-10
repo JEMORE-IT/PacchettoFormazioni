@@ -3,15 +3,12 @@
 import { useState } from "react";
 import posts from "../utils/posts";
 import Popup from "./popup";
+import Link from "next/link";
 
 
 export default function Hero() {
   const [showPopup, setShowPopup] = useState(false);
 
-  const handleSubmit = (newPost: { title: string; content: string }) => {
-    console.log("Nuovo post:", newPost);
-    // qui puoi gestire l'aggiunta dinamica allo stato se usi uno useState con la lista
-  };
 
   return (
     <section className="bg-gray-50 py-12 px-4">
@@ -21,7 +18,7 @@ export default function Hero() {
           {/*pulsante per mostrare il popup*/}
           <button
             onClick={() => setShowPopup(true)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl shadow"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl shadow cursor-pointer"
           >
             Add post
           </button>
@@ -29,13 +26,13 @@ export default function Hero() {
 
         {/*Se showPopup è true allora mostra il popup*/}
         {showPopup && (
-          <Popup onClose={() => setShowPopup(false)} onSubmit={handleSubmit} />
+          <Popup onClose={() => setShowPopup(false)}/>
         )}
 
         {/*lista di articoli*/}
         <div className="space-y-10">
         {posts.map((post) => (
-            <a
+            <Link
               key={post.id}
               className="cursor-pointer"
               href={`/post/${post.id}`}
@@ -47,7 +44,7 @@ export default function Hero() {
                   {post.content.length > 70 && " ..."}
                 </p>
               </article>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
