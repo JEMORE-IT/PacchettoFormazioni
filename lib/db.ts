@@ -1,31 +1,64 @@
 import { Pool } from "pg";
-import path from "path";
-import fs from "fs";
 
-let pool: Pool | null = null;
-
-export function getDbPool(): Pool {
-  if (!pool) {
-    pool = new Pool({
-      connectionString: process.env.DATABASE_URL, // URL del database
-      ssl: {
-        rejectUnauthorized: false, // Disabilita la verifica del certificato SSL
-      },
-    });
-    console.log("Database pool created");
-  }
-  return pool;
+declare global {
+  var _postgresPool: Pool | undefined
 }
 
-export async function applySchema() {
-    const schemaPath = path.join(process.cwd(), "sql", "schema.sql");
-    const schema = fs.readFileSync(schemaPath, "utf8");
-  
-    const pool = getDbPool();
+class PostgresDB {
+  private static instance: PostgresDB
+  public pool: Pool
+
+  private constructor() {
+    if (!process.env.DATABASE_URL) {
+      throw new Error('POSTGRES_URL environment variable is not defined')
+    }
+
+    // Configurazione con connection string
+    this.pool = global._postgresPool || new Pool({
+      connectionString: process.env.DATABASE_URL,
+      max: 20, // numero massimo di client nel pool
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+    })
+
+    // In sviluppo, mantieni il pool in globalThis
+    if (process.env.NODE_ENV === 'development' && !global._postgresPool) {
+      global._postgresPool = this.pool
+    }
+
+    this.pool.on('error', (err) => {
+      console.error('Unexpected error on idle PostgreSQL client', err)
+    })
+  }
+
+  public static getInstance(): PostgresDB {
+    if (!PostgresDB.instance) {
+      PostgresDB.instance = new PostgresDB()
+    }
+    return PostgresDB.instance
+  }
+
+  public async query(sql: string, params?: any[]) {
+    const client = await this.pool.connect()
     try {
-      await pool.query(schema);
-      console.log("Schema applied successfully");
-    } catch (error) {
-      console.error("Failed to apply schema:", error);
+      return await client.query(sql, params)
+    } finally {
+      client.release()
     }
   }
+
+  public async close() {
+    await this.pool.end()
+    global._postgresPool = undefined
+  }
+}
+
+const db = PostgresDB.getInstance()
+
+// Chiudi pulitamente alla terminazione dell'app
+process.on('beforeExit', async () => {
+  await db.close()
+})
+
+export { db }
