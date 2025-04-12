@@ -7,7 +7,7 @@ import Popup from "./popup";
 import Link from "next/link";
 
 
-export default function Hero() {
+export default function BlogList() {
   const [showPopup, setShowPopup] = useState(false);
 
 
