@@ -1,13 +1,30 @@
 "use client";
 
-import { use } from "react";
-import posts from "@/app/utils/posts";
+import { use, useEffect, useState } from "react";
 import Link from "next/link";
+import { fetchPosts } from "@/app/utils/posts";
 
 const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params); // <-- unwrap della Promise con React.use()
 
-  const post = posts.find((a) => a.id === parseInt(id));
+
+  const [posts, setPosts] = useState([]); //posts come uno stato -> array vouto
+
+
+  useEffect(() => {
+    // le pagine client side non possono 
+    // essere asincorone, per cui creamo una funzione 
+    // asincrona che prenda i dati
+    async function loadPosts() {
+      const data = await fetchPosts();
+      setPosts(data);
+    }
+
+    loadPosts();
+
+  }, [])//array delle dipendenze vuoto
+
+  const post: any = posts.find((a: { id: string, title: string, content: string }) => a.id === id);
 
   const handleDelete = () => {
     const conferma = confirm("Sei sicuro di voler eliminare questo post?");
@@ -36,8 +53,8 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4">
       <div className="max-w-3xl mx-auto bg-white shadow-md rounded-xl p-8">
-        <Link href="/" className="text-blue-500 text-sm hover:underline block mb-4">
-          ← Torna alla homepage
+        <Link href="/blog" className="text-blue-500 text-sm hover:underline block mb-4">
+          ← Torna alla blog list
         </Link>
         <h1 className="text-4xl font-bold text-blue-700 mb-6">{post.title}</h1>
         <div className="text-gray-800 leading-relaxed text-lg mb-6">{post.content}</div>
