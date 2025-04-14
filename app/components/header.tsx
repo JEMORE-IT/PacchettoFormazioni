@@ -1,3 +1,4 @@
+// app/components/header.tsx
 import Link from "next/link";
 
 export default function Header() {
@@ -11,6 +12,7 @@ export default function Header() {
             <Link href="/contact" className="text-gray-600 hover:text-blue-600 transition">Contact</Link>
             <Link href="/FAQ" className="text-gray-600 hover:text-blue-600 transition">FAQ</Link>
             <Link href="/our_team" className="text-gray-600 hover:text-blue-600 transition">Our Team</Link>
+            <Link href="/blog" className="text-gray-600 hover:text-blue-600 transition">Blog</Link>
           </nav>
         </div>
       </header>
