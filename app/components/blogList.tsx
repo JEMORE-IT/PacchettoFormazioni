@@ -11,7 +11,7 @@ export default function BlogList() {
   const [posts, setPosts] = useState([]); //posts come uno stato -> array vouto
 
 
-  useEffect(() => {
+  useEffect(() => { // arrow o lambda function
     // le pagine client side non possono 
     // essere asincorone, per cui creamo una funzione 
     // asincrona che prenda i dati

@@ -3,10 +3,11 @@
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { deletePostById, fetchPostById, fetchPosts } from "@/app/utils/posts";
+import Popup from "@/app/components/popup";
 
 const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params); // <-- unwrap della Promise con React.use()
-
+  const [showPopup, setShowPopup] = useState(false);
   const [post, setPost] = useState<any>(null);
 
   useEffect(() => {
@@ -16,7 +17,7 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
     }
 
     loadPost();
-  }, [id]);
+  }, [id]);//al variare di ID cambia l'articolo
 
   const handleDelete = async () => {
     const conferma = confirm("Sei sicuro di voler eliminare questo post?");
@@ -62,10 +63,20 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
         {/* Pulsante Elimina */}
         <button
           onClick={handleDelete}
-          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg cursor-pointer"
+          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 m-5 rounded-lg cursor-pointer"
         >
           Elimina post
         </button>
+        {/* Pulsante Elimina */}
+        <button
+          onClick={() => setShowPopup(true)}
+          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg cursor-pointer"
+        >
+          Modifica post
+        </button>
+        {showPopup &&
+          <Popup onClose={() => setShowPopup(false)} postId={id} />
+        }
       </div>
     </div>
   );

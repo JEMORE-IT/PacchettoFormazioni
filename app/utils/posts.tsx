@@ -72,3 +72,26 @@ export async function addPost({ title, content }: { title: string; content: stri
     }
 }
 
+//MODIFY
+export async function updatePost(id: string, title: string, content: string) {
+    try {
+        const res = await fetch(`/api/blog/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ title, content }),
+        });
+
+        if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error || "Errore durante l'aggiornamento del post");
+        }
+
+        const data = await res.json();
+        return data; // { message, post }
+    } catch (error) {
+        console.error("Errore nella PUT:", error);
+        return null;
+    }
+}

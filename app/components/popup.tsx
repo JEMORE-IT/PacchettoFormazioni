@@ -1,22 +1,24 @@
 "use client";
 // app/components/popup.tsx
 import { useState } from "react";
-import { addPost } from "../utils/posts";
+import { addPost, updatePost } from "../utils/posts";
 
 type Props = {
   onClose: () => void;
+  postId?: string
 };
 
-export default function Popup({ onClose }: Props) {
+export default function Popup({ onClose, postId }: Props) {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Qui puoi gestire l'invio dei dati al server o qualsiasi altra logica necessaria
-    const result = await addPost({ title, content });
+    const result = postId ? await updatePost(postId, title, content) : await addPost({ title, content });
+    console.log({ result })
     if (result) {
-      alert("Post aggiunto con successo!");
+      alert("Operazione andata a buon fine");
       setTitle("");
       setContent("");
       window.location.href = "/blog";
@@ -64,7 +66,7 @@ export default function Popup({ onClose }: Props) {
               type="submit"
               className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer"
             >
-              Add
+              Conferma
             </button>
             <button
               type="button"
