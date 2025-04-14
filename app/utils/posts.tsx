@@ -48,3 +48,27 @@ export async function deletePostById(id: string) {
         return null;
     }
 }
+//ADD
+export async function addPost({ title, content }: { title: string; content: string }) {
+    try {
+        const res = await fetch("/api/blog", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ title, content }),
+        });
+
+        if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error || "Errore durante l'aggiunta del post");
+        }
+
+        const data = await res.json();
+        return data; // contiene { message, post }
+    } catch (error) {
+        console.error("Errore nella POST:", error);
+        return null;
+    }
+}
+

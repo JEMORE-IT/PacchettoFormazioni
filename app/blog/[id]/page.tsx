@@ -30,7 +30,7 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
         alert("Errore durante l'eliminazione del post.");
       }
 
-      window.location.href = "/"; // redireziona
+      window.location.href = "/blog"; // redireziona
     }
   };
 

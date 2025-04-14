@@ -1,6 +1,7 @@
 "use client";
 // app/components/popup.tsx
 import { useState } from "react";
+import { addPost } from "../utils/posts";
 
 type Props = {
   onClose: () => void;
@@ -10,28 +11,31 @@ export default function Popup({ onClose }: Props) {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Qui puoi gestire l'invio dei dati al server o qualsiasi altra logica necessaria
-
-    console.log("Titolo:", title);
-    console.log("Contenuto:", content);
-    alert("Post creato con successo!");
-    setTitle("");
-    setContent("");
+    const result = await addPost({ title, content });
+    if (result) {
+      alert("Post aggiunto con successo!");
+      setTitle("");
+      setContent("");
+      window.location.href = "/blog";
+    } else {
+      alert("Errore durante l'aggiunta del post.");
+    }
     onClose();
   };
 
   return (
     <div className="fixed inset-0 backdrop-blur-sm bg-white/10 flex items-center justify-center z-50 text-blue-500">
-        <div className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full pointer-events-auto">
+      <div className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full pointer-events-auto">
 
         {/*Titolo Popup*/}
         <h3 className="text-xl font-semibold mb-4 text-center">Crea un nuovo post</h3>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-        
-        {/*Campo titolo*/}
+
+          {/*Campo titolo*/}
           <div>
             <label className="block text-sm font-medium mb-1">Titolo</label>
             <input
@@ -42,7 +46,7 @@ export default function Popup({ onClose }: Props) {
               className="w-full border border-gray-300 rounded-lg p-2"
             />
           </div>
-        
+
           {/* Campo contenuto */}
           <div>
             <label className="block text-sm font-medium mb-1">Contenuto</label>
@@ -53,7 +57,7 @@ export default function Popup({ onClose }: Props) {
               className="w-full border border-gray-300 rounded-lg p-2 h-24 resize-none"
             />
           </div>
-        
+
           {/* Pulsanti Submit e Close */}
           <div className="flex justify-between">
             <button
@@ -70,7 +74,7 @@ export default function Popup({ onClose }: Props) {
               Close
             </button>
           </div>
-        
+
         </form>
       </div>
     </div>
