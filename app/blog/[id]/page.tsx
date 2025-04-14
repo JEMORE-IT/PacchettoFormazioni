@@ -2,34 +2,28 @@
 
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
-import { fetchPosts } from "@/app/utils/posts";
+import { fetchPostById, fetchPosts } from "@/app/utils/posts";
 
 const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params); // <-- unwrap della Promise con React.use()
 
-
-  const [posts, setPosts] = useState([]); //posts come uno stato -> array vouto
-
+  const [post, setPost] = useState<any>(null);
 
   useEffect(() => {
-    // le pagine client side non possono 
-    // essere asincorone, per cui creamo una funzione 
-    // asincrona che prenda i dati
-    async function loadPosts() {
-      const data = await fetchPosts();
-      setPosts(data);
+    async function loadPost() {
+      const data = await fetchPostById(id);
+      setPost(data);
     }
 
-    loadPosts();
+    loadPost();
+  }, [id]);
 
-  }, [])//array delle dipendenze vuoto
-
-  const post: any = posts.find((a: { id: string, title: string, content: string }) => a.id === id);
-
-  const handleDelete = () => {
+  console.log({ post })
+  const handleDelete = async () => {
     const conferma = confirm("Sei sicuro di voler eliminare questo post?");
     if (conferma) {
-      alert("Post eliminato!"); // simulazione
+
+
       window.location.href = "/"; // redireziona
     }
   };
