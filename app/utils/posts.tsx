@@ -30,3 +30,21 @@ export async function fetchPostById(id: string) {
         return null; // fallback (es: se vuoi gestire l'errore nel componente)
     }
 }
+// DELETTE ONE
+export async function deletePostById(id: string) {
+    try {
+        const res = await fetch(`/api/blog/${id}`, {
+            method: "DELETE",
+        });
+
+        if (!res.ok) {
+            throw new Error(`Errore durante l'eliminazione del post con ID ${id}`);
+        }
+
+        const result = await res.json();
+        return result; // contiene messaggio e il post eliminato
+    } catch (error) {
+        console.error("Errore nella DELETE:", error);
+        return null;
+    }
+}

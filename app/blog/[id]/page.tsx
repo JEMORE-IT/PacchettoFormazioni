@@ -2,7 +2,7 @@
 
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
-import { fetchPostById, fetchPosts } from "@/app/utils/posts";
+import { deletePostById, fetchPostById, fetchPosts } from "@/app/utils/posts";
 
 const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params); // <-- unwrap della Promise con React.use()
@@ -18,11 +18,17 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
     loadPost();
   }, [id]);
 
-  console.log({ post })
   const handleDelete = async () => {
     const conferma = confirm("Sei sicuro di voler eliminare questo post?");
     if (conferma) {
 
+      const result = await deletePostById(id);
+      if (result) {
+        alert("Post eliminato con successo!");
+        // puoi ricaricare la lista o redirect
+      } else {
+        alert("Errore durante l'eliminazione del post.");
+      }
 
       window.location.href = "/"; // redireziona
     }
@@ -34,10 +40,10 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
         <div className="text-center">
           <h2 className="text-2xl font-semibold text-red-600">404 - Articolo non trovato 😢</h2>
           <Link
-            href="/"
+            href="/blog"
             className="mt-4 inline-block text-blue-500 hover:underline text-sm"
           >
-            ← Torna alla homepage
+            ← Torna alla blog list
           </Link>
         </div>
       </div>
