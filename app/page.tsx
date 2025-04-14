@@ -22,7 +22,8 @@ export default function Home() {
       {/* SubHero Section */}
       <SubHero
         title="Di cosa ci occupiamo"
-        content="Offriamo soluzioni innovative e personalizzate per soddisfare le tue esigenze. La nostra missione è garantire qualità e affidabilità."
+        content="OCi occupiamo di sviluppare soluzioni digitali moderne, scalabili e su misura, combinando tecnologia avanzata con un design intuitivo.
+Il nostro obiettivo è aiutare privati, startup e aziende a trasformare idee in prodotti digitali concreti, funzionali e accattivanti."
       />
 
     </div>
