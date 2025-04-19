@@ -1,15 +1,28 @@
 "use client";
 // app/components/hero.tsx
 
-import { useState } from "react";
-import posts from "../utils/posts";
+import { useEffect, useState } from "react";
 import Popup from "./popup";
 import Link from "next/link";
-
+import { fetchPosts } from "../utils/posts";
 
 export default function BlogList() {
   const [showPopup, setShowPopup] = useState(false);
+  const [posts, setPosts] = useState([]); //posts come uno stato -> array vouto
 
+
+  useEffect(() => { // arrow o lambda function
+    // le pagine client side non possono 
+    // essere asincorone, per cui creamo una funzione 
+    // asincrona che prenda i dati
+    async function loadPosts() {
+      const data = await fetchPosts();
+      setPosts(data);
+    }
+
+    loadPosts();
+
+  }, [])//array delle dipendenze vuoto
 
   return (
     <section className="bg-gray-50 py-12 px-4">
@@ -27,12 +40,12 @@ export default function BlogList() {
 
         {/*Se showPopup è true allora mostra il popup*/}
         {showPopup && (
-          <Popup onClose={() => setShowPopup(false)}/>
+          <Popup onClose={() => setShowPopup(false)} />
         )}
 
         {/*lista di articoli*/}
         <div className="space-y-10">
-        {posts.map((post) => (
+          {posts.map((post: any) => (
             <Link
               key={post.id}
               className="cursor-pointer"
