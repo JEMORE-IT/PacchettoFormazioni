@@ -1,40 +1,81 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Documentazione: Mini Blog con React (Next.js App Router)
+🚀 Obiettivo della Demo
 
-## Getting Started
+Questa demo mostra un piccolo blog dove:
 
-First, run the development server:
+ - Gli articoli sono mostrati in homepage
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ - Ogni articolo è cliccabile → porta a una pagina dinamica
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ - Ci sono pagine statiche come About e Contact
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+ - Tutto è costruito in modo semplice, statico e chiaro
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🧱 Struttura del Progetto
 
-## Learn More
+    app/
+    ├── page.tsx             → Homepage
+    ├── about/
+    │   └── page.tsx         → Pagina "Chi siamo"
+    ├── contact/
+    │   └── page.tsx         → Pagina "Contattaci"
+    ├── post/
+    │   └── [id]/
+    │       └── page.tsx     → Pagina articolo dinamico
+    components/
+    │   |── Hero.tsx         → Componente con la lista articoli
+    |   |── Header.tsx       → Componente con Header
+    |   └── Footer.tsx       → Componente con Footer
+    utils/
+    └── posts.ts             → Dati statici degli articoli
 
-To learn more about Next.js, take a look at the following resources:
+🔍 Come Funziona
+utils/posts.ts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+const posts = [
+  { id: 1, title: "Titolo", content: "Contenuto..." },
+  ...
+];
+export default posts;
+ ✅ Qui definiamo gli articoli in modo statico. Può essere poi sostituito con un API o un database.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    Hero.tsx (Lista articoli)
 
-## Deploy on Vercel
+    {posts.map((post) => (
+      <a href={`/post/${post.id}`} key={post.id}>
+        <article>
+          <h2>{post.title}</h2>
+          <p>{anteprima}</p>
+        </article>
+      </a>
+    ))}
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ✅ Mostra tutti gli articoli
+   ✅ Usa map() per generare un componente per ogni post    
+   ✅ Mostra solo le prime 20 parole del contenuto con una funzione helper
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-=======
-# PacchettoFormazioni
->>>>>>> 499aa0e062bbece609799d43b9376cf3a2182bf6
+app/post/[id]/page.tsx (Pagina dinamica)
+
+    export default async function PostPage({ params }: { params: { id: string } }) {
+      const post = posts.find(p => p.id === parseInt(params.id));
+    }
+ 
+ ✅ Questa è una pagina dinamica: il [id] nella cartella corrisponde all'id nell’URL (/post/2)
+ ✅ params.id è passato direttamente da Next.js
+ ✅ Cerchiamo il post giusto e lo mostriamo
+
+app/about/page.tsx
+
+    <h1>Chi siamo</h1>
+      <p>Questo è un semplice blog creato con React e Next.js.</p>
+
+ ✅ Una pagina statica per testare la navigazione multipagina
+
+🎨 Tailwind CSS
+
+Tutti gli stili sono fatti con Tailwind, ad esempio:
+
+    className="text-2xl font-bold text-blue-600"
+
+ ✅ Consente di scrivere stile direttamente nei componenti ✅ Niente CSS separato, tutto rapido e responsive
+

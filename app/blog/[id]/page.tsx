@@ -1,5 +1,6 @@
 "use client";
 
+
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { deletePostById, fetchPostById, fetchPosts } from "@/app/utils/posts";
@@ -8,6 +9,7 @@ import Popup from "@/app/components/popup";
 const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params); // <-- unwrap della Promise con React.use()
   const [showPopup, setShowPopup] = useState(false);
+
   const [post, setPost] = useState<any>(null);
 
   useEffect(() => {
@@ -22,6 +24,7 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const handleDelete = async () => {
     const conferma = confirm("Sei sicuro di voler eliminare questo post?");
     if (conferma) {
+
 
       const result = await deletePostById(id);
       if (result) {
@@ -74,6 +77,7 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
         >
           Modifica post
         </button>
+
         {showPopup &&
           <Popup onClose={() => setShowPopup(false)} postId={id} />
         }

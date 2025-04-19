@@ -5,6 +5,7 @@ import { addPost, updatePost } from "../utils/posts";
 
 type Props = {
   onClose: () => void;
+
   postId?: string
 };
 
