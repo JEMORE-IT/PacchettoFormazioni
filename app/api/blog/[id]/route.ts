@@ -4,10 +4,11 @@ import {db} from "../../../../lib/db";
 
 
 // Funzione per ottenere un post specifico
-export async function GET(request: Request, context: { params: { id: string } }) {
+export async function GET(
+  request: Request, { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const params = await context.params;
-    const id = Number(params.id);
+    const id = Number((await params).id);
 
     // Validazione dell'ID
     if (!id) {
@@ -25,15 +26,18 @@ export async function GET(request: Request, context: { params: { id: string } })
 
     return NextResponse.json(result.rows[0], { status: 200 });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: "Failed to fetch post" }, { status: 500 });
   }
 }
 
 // Funzione per modificare un post
-export async function PUT(request: Request, context: { params: { id: string } }) {
+export async function PUT(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const params =  await context.params;
-    const id = Number(params.id);
+    const id = Number((await params).id);
     const body = await request.json();
 
     // Validazione dei dati
@@ -58,15 +62,18 @@ export async function PUT(request: Request, context: { params: { id: string } })
       { status: 200 }
     );
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
   }
 }
 
 // Funzione per eliminare un post
-export async function DELETE(request: Request, context: { params: { id: string } }) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const params = await context.params;
-    const id = Number(params.id);
+    const id = Number((await params).id);
 
     // Validazione dell'ID
     if (!id) {
@@ -88,6 +95,7 @@ export async function DELETE(request: Request, context: { params: { id: string }
       { status: 200 }
     );
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: "Failed to delete post" }, { status: 500 });
   }
 }
