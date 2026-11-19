@@ -35,14 +35,13 @@ export default function BlogList() {
             2. Attach an onClick event listener: `onClick={() => setShowPopup(true)}`
             3. Notice how clicking triggers the re-render through setStateFunction!
            ==================================================================== */}
-        {/* <div className="mb-8 text-center">
+        <div className="mb-8 text-center">
           <button
-            onClick={() => setShowPopup(true)}
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl shadow cursor-pointer"
           >
             Add post
           </button>
-        </div> */}
+        </div>
 
         {/* ====================================================================
             TODO: Conditional Rendering & Child-to-Parent Communication
@@ -51,9 +50,6 @@ export default function BlogList() {
                This callback enables the child (Popup) to tell the parent (BlogList)
                to close itself by setting state back to false!
            ==================================================================== */}
-        {/* {showPopup && (
-          <Popup onClose={() => setShowPopup(false)} />
-        )} */}
 
         <div className="space-y-10">
           {/* ====================================================================
