@@ -25,8 +25,6 @@ export default function Popup({ onClose, postId }: Props) {
   // - const [title, setTitle] = useState<string>("");
   // - const [content, setContent] = useState<string>("");
   // ============================================================================
-  const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     // ========================================================================
@@ -36,17 +34,6 @@ export default function Popup({ onClose, postId }: Props) {
     // 3. Reset state values back to empty strings: setTitle(""), setContent("").
     // 4. Call onClose() to close the modal.
     // ========================================================================
-    e.preventDefault();
-    if (postId) {
-      alert("Post modificato con successo!");
-    } else {
-      alert("Post aggiunto con successo!");
-    }
-    console.log("Titolo:", title);
-    console.log("Contenuto:", content);
-    setTitle("");
-    setContent("");
-    onClose();
   };
 
   return (
@@ -69,8 +56,6 @@ export default function Popup({ onClose, postId }: Props) {
                ================================================================ */}
             <input
               type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
               required
               className="w-full border border-gray-300 rounded-lg p-2"
             />
@@ -84,8 +69,6 @@ export default function Popup({ onClose, postId }: Props) {
                 Connect 'value' to content and 'onChange' to (e) => setContent(e.target.value)
                ================================================================ */}
             <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
               required
               className="w-full border border-gray-300 rounded-lg p-2 h-24 resize-none"
             />
