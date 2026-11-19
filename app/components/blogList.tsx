@@ -1,5 +1,5 @@
 "use client";
-// app/components/hero.tsx
+// app/components/blogList.tsx
 
 import { useState } from "react";
 import posts from "../utils/posts";
@@ -16,7 +16,7 @@ export default function BlogList() {
       <div className="max-w-3xl mx-auto">
         <div className="mb-8 text-center">
 
-          {/*pulsante per mostrare il popup*/}
+          {/* Button to display popup */}
           <button
             onClick={() => setShowPopup(true)}
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl shadow cursor-pointer"
@@ -25,12 +25,12 @@ export default function BlogList() {
           </button>
         </div>
 
-        {/*Se showPopup è true allora mostra il popup*/}
+        {/* If showPopup is true, display popup */}
         {showPopup && (
           <Popup onClose={() => setShowPopup(false)}/>
         )}
 
-        {/*lista di articoli*/}
+        {/* List of articles */}
         <div className="space-y-10">
         {posts.map((post) => (
             <Link

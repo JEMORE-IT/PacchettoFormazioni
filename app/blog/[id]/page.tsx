@@ -6,15 +6,15 @@ import Link from "next/link";
 import Popup from "@/app/components/popup";
 
 const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = use(params); // <-- unwrap della Promise con React.use()
+  const { id } = use(params); // <-- unwrap the Promise with React.use()
   const [showPopup, setShowPopup] = useState(false);
   const post = posts.find((a) => a.id === parseInt(id));
 
   const handleDelete = () => {
     const conferma = confirm("Sei sicuro di voler eliminare questo post?");
     if (conferma) {
-      alert("Post eliminato!"); // simulazione
-      window.location.href = "/blog"; // redireziona
+      alert("Post eliminato!"); // simulation
+      window.location.href = "/blog"; // redirect
     }
   };
 
@@ -43,21 +43,21 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
         <h1 className="text-4xl font-bold text-blue-700 mb-6">{post.title}</h1>
         <div className="text-gray-800 leading-relaxed text-lg mb-6">{post.content}</div>
 
-        {/* Pulsante Elimina */}
+        {/* Delete button */}
         <button
           onClick={handleDelete}
           className="bg-red-500 hover:bg-red-600 text-white m-5 px-4 py-2 rounded-lg cursor-pointer"
         >
           Elimina post
         </button>
-        {/* Pulsante Modifica */}
+        {/* Edit button */}
         <button
           onClick={() => setShowPopup(true)}
           className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg cursor-pointer"
         >
           Modifica post
         </button>
-        {/*Se showPopup è true allora mostra il popup*/}
+        {/* If showPopup is true, display popup */}
         {showPopup && (
           <Popup onClose={() => setShowPopup(false)} postId={id} />
         )}

@@ -1,4 +1,4 @@
-// components/SubHero.js
+// app/components/subHero.tsx
 
 interface SubHeroProps {
   title: string;

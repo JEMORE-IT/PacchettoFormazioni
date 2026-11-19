@@ -13,7 +13,7 @@ export default function Popup({ onClose, postId }: Props) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Qui puoi gestire l'invio dei dati al server o qualsiasi altra logica necessaria
+    // Here you can handle sending data to the server or any other necessary logic
     if (postId) {
       alert("Post modificato con successo!");
     } else {
@@ -30,12 +30,12 @@ export default function Popup({ onClose, postId }: Props) {
     <div className="fixed inset-0 backdrop-blur-sm bg-white/10 flex items-center justify-center z-50 text-blue-500">
       <div className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full pointer-events-auto">
 
-        {/*Titolo Popup*/}
+        {/* Popup Title */}
         <h3 className="text-xl font-semibold mb-4 text-center">Crea un nuovo post</h3>
 
         <form onSubmit={handleSubmit} className="space-y-4">
 
-          {/*Campo titolo*/}
+          {/* Title input field */}
           <div>
             <label className="block text-sm font-medium mb-1">Titolo</label>
             <input
@@ -47,7 +47,7 @@ export default function Popup({ onClose, postId }: Props) {
             />
           </div>
 
-          {/* Campo contenuto */}
+          {/* Content input field */}
           <div>
             <label className="block text-sm font-medium mb-1">Contenuto</label>
             <textarea
@@ -58,7 +58,7 @@ export default function Popup({ onClose, postId }: Props) {
             />
           </div>
 
-          {/* Pulsanti Submit e Close */}
+          {/* Submit and Close buttons */}
           <div className="flex justify-between">
             <button
               type="submit"

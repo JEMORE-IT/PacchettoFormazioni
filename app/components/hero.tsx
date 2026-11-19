@@ -1,4 +1,4 @@
-// components/Hero.js
+// app/components/hero.tsx
 
 interface HeroProps {
   title: string;

@@ -1,4 +1,4 @@
-// pages/index.js
+// app/blog/page.tsx
 
 import BlogList from "../components/blogList";
 
