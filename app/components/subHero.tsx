@@ -11,12 +11,17 @@ import React from "react";
 // Hint: Look at app/components/hero.tsx as a reference!
 // ========================================================
 
-const SubHero = () => {
+interface SubHeroProps {
+  title: String
+  subTitle: String
+}
+
+const SubHero = ({ title, subTitle }: SubHeroProps) => {
   return (
     <div className="bg-gray-100 text-gray-800 py-16 px-6 mb-3">
       <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-semibold mb-4">"Aggiungi informazioni sul tuo post."</h2>
-        <p className="text-lg">"Inserisci i dati del tuo post."</p>
+        <h2 className="text-3xl font-semibold mb-4">{title}</h2>
+        <p className="text-lg">{subTitle}</p>
       </div>
     </div>
   );

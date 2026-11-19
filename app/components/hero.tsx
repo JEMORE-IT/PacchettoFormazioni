@@ -16,14 +16,22 @@ import React from "react";
 // 3. Render dynamic values inside JSX:
 //    - <h1>{title}</h1>
 //    - <p>{subtitle}</p>
+// 4. Use of back tik whit braks {``} 
+// 5. Use of optional prop whit '?'
 // ============================================================================
 
-const Hero = () => {
+interface HeroProps {
+  title: String
+  subTitle?: String
+  color: String
+}
+
+const Hero = ({ title, subTitle, color }: HeroProps) => {
   return (
-    <div className="bg-[#0000FF] text-white py-20 px-6">
+    <div className={`bg-${color}-500 text-white py-20 px-6`}>
       <div className="container mx-auto text-center">
-        <h1 className="text-5xl font-bold mb-4">{"INSERT PROPS HERE"}</h1>
-        <p className="text-xl text-gray-300">{"INSERT PROPS HERE"}</p>
+        <h1 className="text-5xl font-bold mb-4">{title}</h1>
+        <p className="text-xl text-gray-300">{subTitle}</p>
       </div>
     </div>
   );

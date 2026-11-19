@@ -65,6 +65,16 @@ export default function BlogList() {
             4. Remember   to pass a unique `key={post.id}` to the root element inside map.
             5. Display `post.title` and a snippet of `post.content` (e.g. slice(0, 70)).
            ==================================================================== */}
+
+          {posts.map((post) => (
+            <Link
+              key={post.id}
+              href={`blog/${post.id}`}
+            >
+              <ArticleCard title={post.title} content={post.content} />
+            </Link>
+          ))}
+
         </div>
       </div>
     </section>

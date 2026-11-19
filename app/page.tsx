@@ -17,6 +17,11 @@ export default function Home() {
              - content: string (explanatory text)
           Goal: Learn how to assemble a page using modular, reusable components with props.
          ======================================================== */}
+      <Hero title={"HERO"} subTitle={"subtitle"} color={"red"}></Hero>
+      <SubHero title={"SubHero"} subTitle={"subtitle"}></SubHero>
+      <SubHero title={"SubHero"} subTitle={"subtitle"}></SubHero>
+      <SubHero title={"SubHero"} subTitle={"subtitle"}></SubHero>
+      <Hero title={"HERO"} color={"blue"}></Hero>
 
     </div>
   );

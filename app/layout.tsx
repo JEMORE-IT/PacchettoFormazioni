@@ -13,9 +13,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             3. Import and place <Footer /> below {children}.
             Goal: Understand how RootLayout provides a persistent frame for all pages.
            ======================================================== */}
-
+        <Header />
         {children}
-
+        <Footer />
       </body>
     </html>
   );

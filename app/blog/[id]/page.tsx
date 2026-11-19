@@ -4,14 +4,16 @@ import { use, useState } from "react";
 import posts from "@/app/utils/posts";
 import Link from "next/link";
 import Popup from "@/app/components/popup";
+import { NotFoundCard } from "@/app/components/notfoudCard";
 
 // ============================================================================
 // TODO: Dynamic Routes & Route Params in Next.js 15
 // ----------------------------------------------------------------------------
 // NEXT.JS DYNAMIC ROUTING:
 // Any folder named `[id]` becomes a dynamic segment in the URL: `/blog/1`, `/blog/2`...
-// In Next.js 15, `params` is a Promise, so in Client Components we unwrap it using
-// React's `use()` hook: `const { id } = use(params);`.
+// In Next.js 15, `params` is a Promise ({ params }: { params: Promise<{ id: string }> }), 
+// so in Client Components we unwrap it using
+//  React's `use()` hook: `const { id } = use(params);`.
 //
 // EXERCISE:
 // 1. Unwrap the 'id' parameter from params.
@@ -25,9 +27,11 @@ import Popup from "@/app/components/popup";
 
 const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params); // <-- unwrap the Promise with React.use()
-  const [showPopup, setShowPopup] = useState(false);
   const post = posts.find((a) => a.id === parseInt(id));
 
+  const [showPopup, setShowPopup] = useState(false);
+
+  {/* Delete function */ }
   const handleDelete = () => {
     const conferma = confirm("Sei sicuro di voler eliminare questo post?");
     if (conferma) {
@@ -38,17 +42,7 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
 
   if (!post) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="text-center">
-          <h2 className="text-2xl font-semibold text-red-600">404 - Articolo non trovato 😢</h2>
-          <Link
-            href="/"
-            className="mt-4 inline-block text-blue-500 hover:underline text-sm"
-          >
-            ← Torna alla homepage
-          </Link>
-        </div>
-      </div>
+      <NotFoundCard />
     );
   }
 
@@ -61,6 +55,7 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
         <h1 className="text-4xl font-bold text-blue-700 mb-6">{post.title}</h1>
         <div className="text-gray-800 leading-relaxed text-lg mb-6">{post.content}</div>
 
+        {/*Insert the modify and delete button*/}
         {/* Delete button */}
         <button
           onClick={handleDelete}
@@ -79,6 +74,7 @@ const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
         {showPopup && (
           <Popup onClose={() => setShowPopup(false)} postId={id} />
         )}
+
       </div>
     </div>
   );
