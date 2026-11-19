@@ -5,6 +5,24 @@ import posts from "@/app/utils/posts";
 import Link from "next/link";
 import Popup from "@/app/components/popup";
 
+// ============================================================================
+// TODO: Dynamic Routes & Route Params in Next.js 15
+// ----------------------------------------------------------------------------
+// NEXT.JS DYNAMIC ROUTING:
+// Any folder named `[id]` becomes a dynamic segment in the URL: `/blog/1`, `/blog/2`...
+// In Next.js 15, `params` is a Promise, so in Client Components we unwrap it using
+// React's `use()` hook: `const { id } = use(params);`.
+//
+// EXERCISE:
+// 1. Unwrap the 'id' parameter from params.
+// 2. Find the corresponding article inside 'posts' using parseInt(id).
+// 3. If no post matches the id, display a 404 user-friendly message.
+// 4. Render the article title and content.
+// 5. Connect the buttons:
+//    - "Elimina post": ask for confirmation, alert, and redirect to /blog.
+//    - "Modifica post": open the <Popup /> by setting showPopup state to true.
+// ============================================================================
+
 const PostPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params); // <-- unwrap the Promise with React.use()
   const [showPopup, setShowPopup] = useState(false);

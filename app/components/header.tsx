@@ -1,6 +1,13 @@
 // app/components/header.tsx
 import Link from "next/link";
 
+// ========================================================
+// NOTE (Navigation in Next.js):
+// Always use the <Link> component instead of plain <a href="..."> tags.
+// <Link> enables client-side navigation (Single Page Application feel),
+// prefetching routes in the background and avoiding full-page reloads!
+// ========================================================
+
 export default function Header() {
     return (
       <header className="bg-white shadow-sm">
